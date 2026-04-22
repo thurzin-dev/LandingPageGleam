@@ -1,0 +1,192 @@
+GLEAM
+Quality Control SaaS for Residential Cleaning Businesses
+gleamqc.com
+Confidential — April 2026
+
+1. Company Overview
+What is Gleam?
+Gleam is a real-time quality control system for small residential cleaning businesses in the United States. The platform enables cleaning company owners to monitor every job being done by their team — in real time — without being physically present at each property.
+Cleaners complete photo-verified checklists on-site using their mobile phone. Owners watch progress live from a dashboard: they see which rooms are done, which items are pending, and photos as proof of work. Nothing is hidden, nothing is forgotten.
+The Problem We Solve
+Owners of cleaning businesses with 5 to 30 employees face an invisible but devastating problem: they cannot be in multiple homes simultaneously. Quality inconsistency causes silent client churn — customers do not complain, they simply cancel.
+A client who pays $200/session and cancels represents $2,400/year in lost recurring revenue
+Most owners have no system to track quality — they rely on WhatsApp, paper notes, or nothing
+A single missed spot or forgotten task can end a client relationship permanently
+Competitors like ZenMaid, Swept, and Janitorial Manager focus on scheduling — not accountability
+Gleam is the first product in this market focused specifically on photo-verified quality control per checklist item. We do not schedule jobs. We make cleaners accountable for every single task.
+The Magic Moment
+The first time an owner opens the Gleam dashboard and sees a cleaner completing checklist items with photos — in real time — from three different homes simultaneously. For the first time, they have eyes everywhere.
+This moment typically happens within the first job created. It is fast, visceral, and impossible to forget. That is when the product sells itself.
+
+2. Product
+How It Works
+Owner Flow
+Owner signs up and creates their company account (14-day free trial, no credit card required)
+Owner adds properties: each property has a client name, address, and a custom checklist organized by room (Kitchen, Bathroom, Living Room, etc.)
+Each room has individual checklist items (e.g., Kitchen: clean countertops, mop floor, clean sink)
+Owner creates jobs: assign a cleaner to a property on a specific date
+Owner monitors the live dashboard: see progress bars, status badges, and photos as cleaners work
+Owner can flag issues, see which items were missed, and send feedback to the cleaner
+Cleaner Flow
+Cleaner receives an invite link from the owner and creates their account
+Cleaner opens the mobile app and sees all jobs scheduled for today
+Cleaner arrives at the property and taps 'Start Job'
+For each checklist item, the cleaner takes a photo as proof and marks it complete
+Progress bar updates in real time — owner sees every action as it happens
+When all items are done, cleaner taps 'Complete Job' — the job is marked done
+Key Features
+Feature	Description
+Photo-verified checklists	Every checklist item requires a photo as proof of completion. No photo = not done.
+Real-time owner dashboard	Live progress view showing all jobs across all properties simultaneously.
+Custom checklists by room	Owners build checklists per room per property. Fully customizable.
+Mobile-first cleaner app	Designed for use with wet/dirty hands — large buttons, generous spacing.
+Team management	Invite cleaners via link, track their active jobs, remove them anytime.
+Multi-tenant isolation	Each company sees only their own data. Row-level security enforced at the database level.
+Stripe billing	Self-serve subscription with trial, plan upgrade/downgrade, and overage detection.
+Google OAuth	Sign in with Google for fast, secure authentication.
+Tech Stack
+Frontend + Backend: Next.js 16 with App Router, React 19, TypeScript, Tailwind CSS, Turbopack
+Database: Supabase PostgreSQL with Row Level Security (RLS)
+Auth: Supabase Auth (email/password + Google OAuth)
+Storage: Supabase Storage — bucket 'job-photos' for cleaner photo uploads
+Payments: Stripe (Checkout, Customer Portal, Webhooks)
+Deploy: Vercel (hobby plan, auto-deploy on push to GitHub)
+Domain: gleamqc.com (Namecheap, DNS pointing to Vercel)
+Database Schema
+Six tables with full multi-tenant isolation via org_id:
+organizations — company account, plan, trial dates, Stripe IDs
+profiles — user accounts linked to an org, role: owner or cleaner
+properties — client homes with address and checklist templates
+checklist_templates — JSONB array of rooms and items per property
+jobs — scheduled cleaning tasks linking a property, cleaner, and date
+job_items — individual checklist items within a job, with photo URL and completion status
+
+3. Market & ICP
+Ideal Customer Profile (ICP)
+Attribute	Detail
+Business type	Residential cleaning company, U.S.-based
+Team size	5 to 30 cleaners
+Annual revenue	$150,000 to $1,000,000/year
+Tech savviness	Low — needs simple, self-serve product
+Buyer = user?	Yes — owner buys and manages the dashboard
+Avg. cleaners/account	3 to 15 (typically ~8)
+Current solution	WhatsApp, paper checklists, or nothing
+Pain trigger	Lost client due to quality complaint; growing team they cannot manage in person
+Market Size
+90,000+ small residential cleaning businesses in the United States
+Average revenue per cleaning: $150 to $300 per session, monthly recurring
+Losing 2 to 3 clients per month = $300 to $900/month in lost recurring revenue per owner
+Industry language: 'reclean', 'missed spots', 'client complaint', 'photo proof', 'accountability'
+Competitive Landscape
+Competitor	Focus	Price Range
+ZenMaid	Scheduling + CRM	$49 to $199/month
+Swept	Scheduling + messaging	$50 to $200/month
+Janitorial Manager	Operations + inventory	$65 to $200/month
+Gleam	Quality control + photo accountability	$49 to $179/month
+Gleam's core differentiation: the only product in this space focused specifically on photo-verified quality control per checklist item. Every competitor does scheduling. Gleam does accountability. These are fundamentally different value propositions.
+
+4. Pricing Strategy
+Model
+Flat fee per tier based on number of active cleaners. Simple to understand for a non-tech-savvy ICP. Three tiers, monthly and annual billing, 14-day free trial with no credit card required.
+Pricing Tiers
+Plan	Cleaners	Monthly	Annual	Annual /mo
+Starter	Up to 5	$49/mo	$490/yr	~$41/mo
+Growth (Most Popular)	Up to 15	$99/mo	$990/yr	~$83/mo
+Pro	Unlimited	$179/mo	$1,790/yr	~$149/mo
+Annual discount: 2 months free (~16.7% off). Pushed at end of trial: 'Lock in your rate — 2 months free.'
+Overage: $9/cleaner/month for accounts that temporarily exceed their tier limit. Captures incremental revenue and signals a natural upgrade path without requiring an immediate plan change.
+Pricing Rationale
+Why $49 for Starter?
+Removes entry friction for skeptical 1 to 5 cleaner shops who have never paid for software
+Land-and-expand entry point — most accounts will grow past 5 cleaners and upgrade naturally
+Low enough that a single retained client ROI argument is obvious
+Why $99 for Growth?
+Sits just under $100 — psychologically important for non-tech buyers
+Covers the ICP sweet spot: 5 to 15 cleaners, where ~70% of accounts will land
+Value capture ~16% of the $600+/month value delivered — well within B2B SaaS benchmarks
+Competitors charge $50 to $200 for less specialized tools, making $99 feel fair and premium
+Why $179 for Pro?
+Anchors perceived value at the top, captures larger operators (15 to 30 cleaners)
+Still below competitors' high-end pricing ($200), positioning Gleam as specialized but fair
+API access + dedicated onboarding justify the price for operators running at scale
+Unit Economics
+Metric	Starter	Growth	Pro
+Monthly price	$49	$99	$179
+Value delivered/mo	$300+	$600+	$900+
+Value capture %	~16%	~16%	~20%
+Payback period	< 1 retained client	< 1 retained client	< 1 retained client
+Industry benchmark for B2B SaaS: value capture should sit between 10 and 30% of delivered value. All three Gleam tiers fall within this range.
+
+5. Go-to-Market Strategy
+Motion: Product-Led Growth (PLG)
+Gleam is fully self-serve. No sales team at launch. The product sells itself through the trial experience. Owners sign up, create their first job, see the real-time dashboard update as a cleaner completes items — and the value is immediately obvious.
+Distribution Channels
+Primary: Facebook Groups
+Facebook has hundreds of active groups for residential cleaning business owners in the U.S.
+Groups like 'Cleaning Business Owners' and 'House Cleaning Business Tips' have 50,000+ members
+Strategy: genuine value-first posting — share insights about quality control, client retention, team management — not direct ads
+Soft CTAs pointing to gleamqc.com and the 14-day free trial
+Secondary: Cleaning Industry Communities
+Reddit communities (r/CleaningBusinessOwners, r/Entrepreneur)
+YouTube comments on cleaning business channels
+Nextdoor and local business Facebook groups
+Tertiary: Referral Loop
+Every time a cleaner gets invited to Gleam, they see the product from the inside
+Cleaners who leave one company may start their own and become owners (Gleam customers)
+Built-in organic referral: owners who love Gleam talk to other owners in their networks
+Trial-to-Paid Conversion
+14-day trial, no credit card required — maximum top-of-funnel volume
+At end of trial: billing wall appears, owner must choose a plan to continue
+Annual plan nudge at trial end: 'Lock in your rate — 2 months free'
+Target conversion rate: 25% trial-to-paid (typical for simple self-serve B2B SaaS)
+
+6. Financial Projections
+MRR Targets
+Based on PLG model with ~25% trial-to-paid conversion. Growth plan ($99/month) assumed as the dominant plan for average revenue per account calculation.
+Period	Target MRR	Est. Paying Accounts
+Month 1	~$0	—
+Month 2	~$200	~2 accounts
+Month 3	~$500	~5 accounts
+Month 4	~$900	~9 accounts
+Month 5	~$1,600	~16 accounts
+Month 6 (Target)	~$3,000	~30 accounts
+Month 9	~$6,800	~68 accounts
+Month 12 (Target)	~$10,000	~100 accounts
+Key assumptions: average revenue per account of ~$99/month (mostly Growth). Hitting $3k MRR in 6 months requires ~30 paying accounts. Hitting $10k MRR at month 12 requires ~100 — both achievable with focused PLG distribution.
+Current Operating Cost
+Vercel: $0/month (hobby plan)
+Supabase: $0/month (free tier)
+Namecheap domain: ~$12/year
+Stripe: 2.9% + $0.30 per transaction (no monthly fee)
+Total fixed cost at launch: $0/month
+
+7. Product Roadmap
+Current Status (April 2026)
+MVP built: owner dashboard, cleaner mobile app, job management, photo checklists
+Supabase backend with Row Level Security fully configured
+Stripe billing integration: Starter, Growth, Pro plans with trial enforcement
+Google OAuth authentication
+Domain live: gleamqc.com (Vercel + Namecheap)
+GitHub repository with 4-agent development workflow (frontend, backend, security, bugs)
+Short-Term (Next 30 Days)
+Polish all UI flows to production quality
+Connect all frontend pages to real Supabase data (remove sample data)
+Run the Supabase SQL schema in production
+Create Stripe products and test full billing flow end-to-end
+Test the complete owner and cleaner flows with real users
+Fix Google OAuth redirect URLs in Supabase dashboard
+Medium-Term (30 to 90 Days)
+Launch on Facebook cleaning business groups
+Add client-facing quality reports (PDF export of job with photos)
+Add team performance analytics: cleaners ranked by completion rate
+Add push notifications for cleaners (job assignment, job reminder)
+Add owner notification when a cleaner starts or completes a job
+Long-Term (90+ Days)
+API access for Pro plan users (integrate with scheduling tools)
+Dedicated onboarding for Pro accounts
+Referral program: 1 month free for each referred account that subscribes
+iOS and Android native apps (when PLG traction is proven)
+Enterprise tier for franchises and multi-location cleaning companies
+
+8. One-Paragraph Pitch
+Gleam is a quality control SaaS for residential cleaning businesses in the U.S. Owners of 5-to-30 person teams can't be at every home their cleaners visit — so quality slips, clients cancel silently, and revenue disappears. Gleam gives owners real-time visibility into every job: cleaners complete photo-verified checklists room by room, and owners watch it live from a dashboard. One retained client per month pays for Gleam. Everything else is profit. At $49 to $179/month with a 14-day free trial, Gleam is the only product in the $90,000+ cleaning business market built specifically for quality accountability — not just scheduling.

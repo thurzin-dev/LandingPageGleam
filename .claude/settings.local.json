@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:geniestudio.app)",
+      "WebFetch(domain:follow.art)",
+      "WebFetch(domain:greenly.earth)",
+      "WebFetch(domain:phantom.com)",
+      "WebFetch(domain:chainzoku.io)",
+      "WebFetch(domain:www.healthytogether.co)"
+    ]
+  }
+}
