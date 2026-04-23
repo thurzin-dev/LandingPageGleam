@@ -1051,6 +1051,8 @@
     }
     .testi:nth-child(1) { transform: translateX(-40px); }
     .testi:nth-child(2) { transform: translateX(40px); transition-delay: 150ms; }
+    .testi:nth-child(3) { transform: translateX(-40px); transition-delay: 300ms; }
+    .testi:nth-child(4) { transform: translateX(40px); transition-delay: 450ms; }
     .testi.in { opacity: 1; transform: translateX(0); }
     .testi-stars {
       color: #f59e0b;
@@ -1103,7 +1105,9 @@
         flex-shrink: 0;
       }
       .testi:nth-child(1),
-      .testi:nth-child(2) { transform: none; transition-delay: 0ms; }
+      .testi:nth-child(2),
+      .testi:nth-child(3),
+      .testi:nth-child(4) { transform: none; transition-delay: 0ms; }
       .testi.in { transform: none; }
       .testi-dots {
         display: flex;
@@ -1126,7 +1130,9 @@
     @media (prefers-reduced-motion: reduce) {
       .testi,
       .testi:nth-child(1),
-      .testi:nth-child(2) { transform: none; transition: none; opacity: 1; }
+      .testi:nth-child(2),
+      .testi:nth-child(3),
+      .testi:nth-child(4) { transform: none; transition: none; opacity: 1; }
     }
 
     /* ─────── How it works ─────── */
@@ -1875,9 +1881,37 @@
           </div>
         </div>
       </div>
+
+      <div class="testi">
+        <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="testi-body">I showed Gleam to my best client before I even launched it. She said "finally, someone who takes this seriously." I haven't lost a client since I started using it.</p>
+        <div class="testi-author">
+          <img class="testi-photo" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=80&h=80&fit=crop&crop=face" alt="Linda R." loading="lazy" width="48" height="48">
+          <div>
+            <div class="testi-name">Linda R.</div>
+            <div class="testi-role">Bright Home Cleaning · 6 cleaners</div>
+            <div class="testi-verified">Verified Gleam customer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi">
+        <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="testi-body">My cleaners actually do better work now. They know I can see every photo. One of them told me it makes her feel proud of her work. I didn't expect that.</p>
+        <div class="testi-author">
+          <img class="testi-photo" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=80&h=80&fit=crop&crop=face" alt="Marcus D." loading="lazy" width="48" height="48">
+          <div>
+            <div class="testi-name">Marcus D.</div>
+            <div class="testi-role">Spotless Pro Services · 11 cleaners</div>
+            <div class="testi-verified">Verified Gleam customer</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="testi-dots" aria-hidden="true">
       <div class="testi-dot active"></div>
+      <div class="testi-dot"></div>
+      <div class="testi-dot"></div>
       <div class="testi-dot"></div>
     </div>
   </div>
