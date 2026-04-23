@@ -692,79 +692,113 @@
     .sol-checklist.animate .sc-cursor { opacity: 1; }
     @keyframes sccursor { 50% { opacity: 0; } }
 
-    /* Step 2 — phone frame */
-    .sol-phone {
-      width: 200px;
-      background: #111827;
-      border-radius: 30px;
-      padding: 9px;
-      box-shadow: 0 20px 50px -12px rgba(15,23,42,0.3);
-    }
-    .sol-phone-screen {
+    /* Step 2 — job card */
+    .sol-jobcard {
+      width: 100%;
+      max-width: 400px;
       background: white;
-      border-radius: 22px;
-      padding: 18px 14px;
-      min-height: 300px;
-    }
-    .sp-notch {
-      width: 54px; height: 5px;
-      background: #1f2937;
-      border-radius: 3px;
-      margin: -6px auto 14px;
-    }
-    .sp-job-card {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 24px;
     }
-    .sp-addr {
-      font-size: 13px; font-weight: 700;
+    .jc-top {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .jc-avatar {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .jc-addr {
+      font-size: 16px; font-weight: 700;
       color: var(--ink);
-      margin-bottom: 10px;
       letter-spacing: -0.005em;
     }
-    .sp-meta {
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 12px;
-    }
-    .sp-avatar {
-      display: flex; align-items: center; justify-content: center;
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-      color: white;
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    .sp-time { font-size: 11px; color: var(--ink-soft); }
-    .sp-badge {
+    .jc-time {
       margin-left: auto;
-      font-size: 9px; font-weight: 700;
-      background: var(--blue-soft); color: var(--blue-dark);
-      padding: 3px 7px; border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      font-size: 13px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
     }
-    .sp-pbar {
+    .jc-divider {
+      height: 1px;
+      background: #f1f5f9;
+      margin: 16px 0;
+    }
+    .jc-room {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+    .jc-room::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+    .jc-items { margin-top: 10px; }
+    .jc-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 0;
+      font-size: 14px;
+      color: var(--ink-body);
+    }
+    .jc-check {
+      width: 18px; height: 18px;
+      border-radius: 4px;
+      border: 1.5px solid #cbd5e1;
+      background: white;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+    }
+    .jc-item.done .jc-check {
+      background: var(--blue);
+      border-color: var(--blue);
+      transform: scale(0);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sol-jobcard.animate .jc-item.done .jc-check { transform: scale(1); }
+    .jc-check svg { display: block; }
+    .jc-item.pending .jc-label { color: #94a3b8; }
+    .jc-label { flex: 1; }
+    .jc-cam {
+      display: flex; align-items: center;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .jc-progress-row {
+      display: flex; align-items: center; gap: 16px;
+      margin-top: 4px;
+    }
+    .jc-progress-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .jc-progress-bar {
+      width: 200px;
       height: 6px;
-      background: var(--line);
+      background: #e2e8f0;
       border-radius: 999px;
       overflow: hidden;
+      margin-left: auto;
+      flex-shrink: 0;
     }
-    .sp-pbar-fill {
+    .jc-progress-fill {
       height: 100%;
       width: 0;
       background: var(--blue);
       border-radius: 999px;
-      transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: width 1s ease-out;
     }
-    .sp-pbar-fill.filled { width: 60%; }
-    .sp-pct {
-      font-size: 10px; color: var(--ink-soft);
-      margin-top: 6px;
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
+    .sol-jobcard.animate .jc-progress-fill { width: 66%; }
 
     /* Step 3 — dashboard card */
     .sol-dash {
@@ -820,7 +854,9 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .sd-dot.pulse { animation: none; }
-      .sp-pbar-fill { transition: none; }
+      .jc-item.done .jc-check,
+      .jc-progress-fill { transition: none; }
+      .sol-jobcard.animate .jc-item.done .jc-check { transform: scale(1); }
       .sc-room-title, .sc-item { opacity: 1; transform: none; }
     }
 
@@ -1582,19 +1618,34 @@
         <p class="sol-body">Your cleaner opens the Gleam app, sees their jobs for the day, and starts working. For every item on the checklist, they take a photo as proof and mark it complete. No photo — it's not done.</p>
       </div>
       <div class="sol-ui">
-        <div class="sol-phone">
-          <div class="sol-phone-screen">
-            <div class="sp-notch"></div>
-            <div class="sp-job-card">
-              <div class="sp-addr">142 Maple Ave</div>
-              <div class="sp-meta">
-                <div class="sp-avatar">MG</div>
-                <div class="sp-time">9:15 AM</div>
-                <div class="sp-badge">In Progress</div>
-              </div>
-              <div class="sp-pbar"><div class="sp-pbar-fill" id="spFill"></div></div>
-              <div class="sp-pct">60%</div>
+        <div class="sol-jobcard" id="solJobcard">
+          <div class="jc-top">
+            <div class="jc-avatar">MG</div>
+            <div class="jc-addr">142 Maple Ave</div>
+            <div class="jc-time">9:15 AM</div>
+          </div>
+          <div class="jc-divider"></div>
+          <div class="jc-room">Kitchen</div>
+          <div class="jc-items">
+            <div class="jc-item done">
+              <div class="jc-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.2L4.8 8.5L9.5 3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="jc-label">Wipe counters</div>
+              <div class="jc-cam" aria-label="Photo attached"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
             </div>
+            <div class="jc-item done">
+              <div class="jc-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 6.2L4.8 8.5L9.5 3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="jc-label">Mop floor</div>
+              <div class="jc-cam" aria-label="Photo attached"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
+            </div>
+            <div class="jc-item pending">
+              <div class="jc-check"></div>
+              <div class="jc-label">Clean sink</div>
+            </div>
+          </div>
+          <div class="jc-divider"></div>
+          <div class="jc-progress-row">
+            <div class="jc-progress-text">2 of 3 items done</div>
+            <div class="jc-progress-bar"><div class="jc-progress-fill"></div></div>
           </div>
         </div>
       </div>
@@ -2096,16 +2147,18 @@
     obs.observe(cl);
   })();
 
-  // Solution step 2 — phone progress bar
-  (function solPhone() {
-    const fill = document.getElementById('spFill');
-    if (!fill) return;
+  // Solution step 2 — job card (staggered checkboxes + progress bar)
+  (function solJobcard() {
+    const card = document.getElementById('solJobcard');
+    if (!card) return;
+    const checks = card.querySelectorAll('.jc-item.done .jc-check');
+    checks.forEach((el, i) => { el.style.transitionDelay = (i * 150) + 'ms'; });
     const obs = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
-      setTimeout(() => fill.classList.add('filled'), 150);
+      setTimeout(() => card.classList.add('animate'), 120);
       obs.disconnect();
     }, { threshold: 0.3 });
-    obs.observe(fill);
+    obs.observe(card);
   })();
 
   // Solution step 3 — dashboard counter increment
