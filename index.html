@@ -994,32 +994,95 @@
       grid-template-columns: 1fr 1fr;
       gap: 32px;
     }
-    @media (max-width: 768px) {
-      .testi-grid { grid-template-columns: 1fr; }
-    }
     .testi {
+      position: relative;
       background: white;
       border: 1px solid var(--line);
+      border-left: 3px solid var(--blue);
       border-radius: 12px;
       padding: 32px;
+      opacity: 0;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .testi:nth-child(1) { transform: translateX(-40px); }
+    .testi:nth-child(2) { transform: translateX(40px); transition-delay: 150ms; }
+    .testi.in { opacity: 1; transform: translateX(0); }
+    .testi-stars {
+      color: #f59e0b;
+      font-size: 16px;
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 16px;
     }
     .testi-body {
-      font-size: 18px; line-height: 1.6;
-      color: var(--ink-body);
+      font-size: 17px;
+      line-height: 1.7;
+      color: #334155;
       margin-bottom: 24px;
     }
     .testi-author {
       display: flex; align-items: center; gap: 12px;
     }
-    .testi-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; font-weight: 700; color: white;
-      background: var(--blue);
+    .testi-photo {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
     }
-    .testi-avatar.jt { background: #8b5cf6; }
     .testi-name { font-size: 16px; font-weight: 700; color: var(--ink); }
     .testi-role { font-size: 14px; color: var(--muted); }
+    .testi-verified {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-top: 2px;
+    }
+    .testi-dots { display: none; }
+
+    @media (max-width: 768px) {
+      .testi-grid {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px 24px 4px;
+        margin: 0 -24px;
+      }
+      .testi-grid::-webkit-scrollbar { display: none; }
+      .testi {
+        min-width: 85vw;
+        max-width: 85vw;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+      }
+      .testi:nth-child(1),
+      .testi:nth-child(2) { transform: none; transition-delay: 0ms; }
+      .testi.in { transform: none; }
+      .testi-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .testi-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #cbd5e1;
+        transition: background 0.2s ease-out, transform 0.2s ease-out;
+      }
+      .testi-dot.active {
+        background: var(--blue);
+        transform: scale(1.15);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .testi,
+      .testi:nth-child(1),
+      .testi:nth-child(2) { transform: none; transition: none; opacity: 1; }
+    }
 
     /* ─────── How it works ─────── */
     .how-grid {
@@ -1734,28 +1797,36 @@
       <h2 class="section-h">Owners who stopped guessing.</h2>
     </div>
 
-    <div class="testi-grid">
-      <div class="testi reveal">
+    <div class="testi-grid" id="testiGrid">
+      <div class="testi">
+        <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
         <p class="testi-body">I had no idea one of my cleaners was skipping the master bathroom every single week. Gleam showed me in the first job. That client would have been gone by the end of the month.</p>
         <div class="testi-author">
-          <div class="testi-avatar">SM</div>
+          <img class="testi-photo" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face" alt="Sarah M." loading="lazy" width="48" height="48">
           <div>
             <div class="testi-name">Sarah M.</div>
             <div class="testi-role">CleanPro Austin · 8 cleaners</div>
+            <div class="testi-verified">Verified Gleam customer</div>
           </div>
         </div>
       </div>
 
-      <div class="testi reveal">
+      <div class="testi">
+        <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
         <p class="testi-body">I used to call every cleaner after every job to check in. Now I just look at my phone. It's saved me 2 hours a day.</p>
         <div class="testi-author">
-          <div class="testi-avatar jt">JT</div>
+          <img class="testi-photo" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=80&h=80&fit=crop&crop=face" alt="James T." loading="lazy" width="48" height="48">
           <div>
             <div class="testi-name">James T.</div>
             <div class="testi-role">Sparkle Clean · 12 cleaners</div>
+            <div class="testi-verified">Verified Gleam customer</div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="testi-dots" aria-hidden="true">
+      <div class="testi-dot active"></div>
+      <div class="testi-dot"></div>
     </div>
   </div>
 </section>
@@ -2235,6 +2306,41 @@
       obs.observe(card);
     } else {
       calc();
+    }
+  })();
+
+  // Testimonials — slide-in reveal + mobile swipe dots
+  (function testi() {
+    const cards = document.querySelectorAll('.testi-wrap .testi');
+    if (cards.length) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+      cards.forEach(c => obs.observe(c));
+    }
+
+    const grid = document.getElementById('testiGrid');
+    const dots = document.querySelectorAll('.testi-dots .testi-dot');
+    if (grid && dots.length) {
+      let raf = null;
+      grid.addEventListener('scroll', () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          const first = grid.querySelector('.testi');
+          if (!first) return;
+          const style = getComputedStyle(grid);
+          const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+          const step = first.offsetWidth + gap;
+          const idx = step > 0 ? Math.round(grid.scrollLeft / step) : 0;
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        });
+      }, { passive: true });
     }
   })();
 </script>
