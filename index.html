@@ -595,61 +595,360 @@
 
     /* ─────── Solution ─────── */
     .solution { background: var(--gray-bg); }
-    .solution-steps {
+    .sol-row {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 48px;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .sol-divider {
+      height: 1px;
+      background: var(--line);
+      width: 100%;
+      margin: 48px 0;
     }
     @media (max-width: 900px) {
-      .solution-steps { grid-template-columns: 1fr; gap: 48px; }
+      .sol-row { grid-template-columns: 1fr; gap: 32px; }
+      .sol-row .sol-ui { order: 2; }
     }
-    .sol-step { position: relative; padding-top: 20px; }
     .sol-num {
-      position: absolute;
-      top: -12px; left: -6px;
       font-family: 'Fraunces', serif;
-      font-size: 64px; font-weight: 700;
+      font-size: 56px; font-weight: 700;
       color: var(--blue);
-      opacity: 0.2;
+      opacity: 0.22;
       line-height: 1;
       letter-spacing: -0.04em;
+      margin-bottom: 16px;
     }
     .sol-title {
-      position: relative;
-      font-size: 22px; font-weight: 700;
+      font-family: 'Fraunces', serif;
+      font-size: 28px; font-weight: 700;
       color: var(--ink);
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
     }
     .sol-body {
       font-size: 17px;
       color: var(--ink-soft);
       line-height: 1.65;
     }
+    .sol-ui { display: flex; justify-content: center; }
 
-    /* ─────── Benefits ─────── */
-    .ben-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+    /* Step 1 — checklist card */
+    .sol-checklist {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 20px;
     }
-    @media (max-width: 768px) {
-      .ben-grid { grid-template-columns: 1fr; gap: 28px; }
+    .sc-room { margin-bottom: 14px; }
+    .sc-room:last-child { margin-bottom: 0; }
+    .sc-room-title {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.45s ease-out, transform 0.45s ease-out;
     }
-    .ben-item {
-      padding: 8px 0 8px 24px;
-      border-left: 2px solid var(--blue);
+    .sc-room-title::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
     }
-    .ben-title {
-      font-size: 22px; font-weight: 700;
+    .sc-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      padding: 4px 0 4px 14px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+    }
+    .sc-item::before {
+      content: '';
+      width: 12px; height: 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .sol-checklist.animate .sc-room-title,
+    .sol-checklist.animate .sc-item { opacity: 1; transform: translateY(0); }
+    .sc-cursor {
+      display: inline-block;
+      width: 2px; height: 13px;
+      background: var(--blue);
+      margin-left: 3px;
+      vertical-align: -2px;
+      opacity: 0;
+      animation: sccursor 0.9s step-end infinite;
+    }
+    .sol-checklist.animate .sc-cursor { opacity: 1; }
+    @keyframes sccursor { 50% { opacity: 0; } }
+
+    /* Step 2 — phone frame */
+    .sol-phone {
+      width: 200px;
+      background: #111827;
+      border-radius: 30px;
+      padding: 9px;
+      box-shadow: 0 20px 50px -12px rgba(15,23,42,0.3);
+    }
+    .sol-phone-screen {
+      background: white;
+      border-radius: 22px;
+      padding: 18px 14px;
+      min-height: 300px;
+    }
+    .sp-notch {
+      width: 54px; height: 5px;
+      background: #1f2937;
+      border-radius: 3px;
+      margin: -6px auto 14px;
+    }
+    .sp-job-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .sp-addr {
+      font-size: 13px; font-weight: 700;
       color: var(--ink);
       margin-bottom: 10px;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.005em;
     }
-    .ben-body {
-      font-size: 17px;
+    .sp-meta {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 12px;
+    }
+    .sp-avatar {
+      display: flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .sp-time { font-size: 11px; color: var(--ink-soft); }
+    .sp-badge {
+      margin-left: auto;
+      font-size: 9px; font-weight: 700;
+      background: var(--blue-soft); color: var(--blue-dark);
+      padding: 3px 7px; border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .sp-pbar {
+      height: 6px;
+      background: var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .sp-pbar-fill {
+      height: 100%;
+      width: 0;
+      background: var(--blue);
+      border-radius: 999px;
+      transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .sp-pbar-fill.filled { width: 60%; }
+    .sp-pct {
+      font-size: 10px; color: var(--ink-soft);
+      margin-top: 6px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Step 3 — dashboard card */
+    .sol-dash {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 20px;
+    }
+    .sd-title {
+      font-size: 13px; font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.005em;
+    }
+    .sd-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 0;
+      border-top: 1px solid var(--line-soft);
+      font-size: 13px;
+    }
+    .sd-row:first-of-type { border-top: none; }
+    .sd-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .sd-dot.green { background: var(--green); }
+    .sd-dot.blue  { background: var(--blue); }
+    .sd-dot.gray  { background: #cbd5e1; }
+    .sd-dot.pulse { animation: sdpulse 3s infinite; }
+    @keyframes sdpulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+      20%      { box-shadow: 0 0 0 6px rgba(16,185,129,0.28); }
+      40%      { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+    }
+    .sd-name { color: var(--ink); font-weight: 600; }
+    .sd-init {
+      font-size: 10px; font-weight: 700;
+      background: var(--blue-soft); color: var(--blue-dark);
+      padding: 3px 7px; border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+    .sd-frac {
+      font-size: 12px;
       color: var(--ink-soft);
-      line-height: 1.65;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sd-dot.pulse { animation: none; }
+      .sp-pbar-fill { transition: none; }
+      .sc-room-title, .sc-item { opacity: 1; transform: none; }
+    }
+
+    /* ─────── ROI Calculator ─────── */
+    .roi-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.1);
+      padding: 40px;
+    }
+    .roi-headline {
+      font-family: 'Figtree', sans-serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .roi-sub {
+      font-size: 15px;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+    }
+    .roi-field { margin-bottom: 24px; }
+    .roi-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 14px;
+      color: var(--ink-body);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .roi-label b {
+      font-family: 'Figtree', sans-serif;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+    .roi-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--line);
+      outline: none;
+      cursor: pointer;
+    }
+    .roi-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--blue);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(14,165,233,0.3);
+      transition: transform 0.15s ease-out;
+    }
+    .roi-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    .roi-slider::-moz-range-thumb {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--blue);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(14,165,233,0.3);
+    }
+    .roi-slider:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 4px; }
+    .roi-result {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    .roi-number {
+      font-family: 'Fraunces', serif;
+      font-size: 52px; font-weight: 700;
+      color: var(--blue);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .roi-note {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-top: 10px;
+    }
+    .roi-pitch {
+      font-size: 16px;
+      color: #334155;
+      text-align: center;
+      margin-top: 24px;
+      line-height: 1.55;
+    }
+    .roi-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 56px;
+      background: var(--blue);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      margin-top: 20px;
+      transition: background 0.2s ease-out, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+      box-shadow: 0 4px 16px -4px rgba(14,165,233,0.4);
+    }
+    .roi-cta:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px -6px rgba(14,165,233,0.5);
+    }
+    .roi-cta:focus-visible { outline: 2px solid var(--blue-dark); outline-offset: 2px; }
+    .roi-cta:active { transform: translateY(0); }
+    .roi-small {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+    @media (max-width: 640px) {
+      .roi-card { padding: 28px 20px; border-radius: 12px; }
+      .roi-number { font-size: 40px; }
     }
 
     /* ─────── Testimonials ─────── */
@@ -1246,21 +1545,91 @@
       <h2 class="section-h">Know exactly what happened in every room. Before the client does.</h2>
     </div>
 
-    <div class="solution-steps">
-      <div class="sol-step reveal">
+    <div class="sol-row reveal">
+      <div class="sol-text">
         <div class="sol-num">01</div>
         <h3 class="sol-title">Build your checklist once</h3>
         <p class="sol-body">Add your properties and create custom room-by-room checklists. Kitchen: wipe counters, mop floor, clean sink. Bathroom: scrub toilet, clean mirror, replace towels. You decide what done looks like.</p>
       </div>
-      <div class="sol-step reveal">
+      <div class="sol-ui">
+        <div class="sol-checklist" id="solChecklist">
+          <div class="sc-room">
+            <div class="sc-room-title">Kitchen</div>
+            <div class="sc-item">Wipe counters</div>
+            <div class="sc-item">Mop floor</div>
+            <div class="sc-item">Clean sink</div>
+          </div>
+          <div class="sc-room">
+            <div class="sc-room-title">Bathroom</div>
+            <div class="sc-item">Scrub toilet</div>
+            <div class="sc-item">Clean mirror</div>
+          </div>
+          <div class="sc-room">
+            <div class="sc-room-title">Living Room</div>
+            <div class="sc-item">Dust surfaces</div>
+            <div class="sc-item">Vacuum rug<span class="sc-cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol-divider"></div>
+
+    <div class="sol-row reveal">
+      <div class="sol-text">
         <div class="sol-num">02</div>
         <h3 class="sol-title">Send your cleaner to work</h3>
         <p class="sol-body">Your cleaner opens the Gleam app, sees their jobs for the day, and starts working. For every item on the checklist, they take a photo as proof and mark it complete. No photo — it's not done.</p>
       </div>
-      <div class="sol-step reveal">
+      <div class="sol-ui">
+        <div class="sol-phone">
+          <div class="sol-phone-screen">
+            <div class="sp-notch"></div>
+            <div class="sp-job-card">
+              <div class="sp-addr">142 Maple Ave</div>
+              <div class="sp-meta">
+                <div class="sp-avatar">MG</div>
+                <div class="sp-time">9:15 AM</div>
+                <div class="sp-badge">In Progress</div>
+              </div>
+              <div class="sp-pbar"><div class="sp-pbar-fill" id="spFill"></div></div>
+              <div class="sp-pct">60%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol-divider"></div>
+
+    <div class="sol-row reveal">
+      <div class="sol-text">
         <div class="sol-num">03</div>
         <h3 class="sol-title">Watch it happen live</h3>
         <p class="sol-body">From your dashboard, you see every room, every item, every photo — updated in real time as your cleaner works. See who's in progress, who's done, and what was missed. From any device, from anywhere.</p>
+      </div>
+      <div class="sol-ui">
+        <div class="sol-dash">
+          <div class="sd-title">Today's jobs</div>
+          <div class="sd-row">
+            <div class="sd-dot green pulse"></div>
+            <div class="sd-name">Birchwood Villa</div>
+            <div class="sd-init">JP</div>
+            <div class="sd-frac">15/15</div>
+          </div>
+          <div class="sd-row">
+            <div class="sd-dot blue"></div>
+            <div class="sd-name">142 Maple Ave</div>
+            <div class="sd-init">MG</div>
+            <div class="sd-frac" id="sdFrac">8/24</div>
+          </div>
+          <div class="sd-row">
+            <div class="sd-dot gray"></div>
+            <div class="sd-name">Sunset Cottage</div>
+            <div class="sd-init">AK</div>
+            <div class="sd-frac">0/15</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1274,23 +1643,34 @@
       <h2 class="section-h">Finally, a system that holds your team accountable — so you don't have to.</h2>
     </div>
 
-    <div class="ben-grid">
-      <div class="ben-item reveal">
-        <h3 class="ben-title">Keep clients longer</h3>
-        <p class="ben-body">When cleaners know every item is documented, quality goes up automatically. Fewer missed spots means fewer cancellations.</p>
+    <div class="roi-card reveal">
+      <div class="roi-headline">See how much you're losing every month.</div>
+      <div class="roi-sub">Move the sliders. See your number.</div>
+
+      <div class="roi-field">
+        <div class="roi-label">
+          <span>How many active cleaners do you have?</span>
+          <b id="roiCleanersLabel">8</b>
+        </div>
+        <input type="range" class="roi-slider" id="roiCleaners" min="1" max="30" step="1" value="8" aria-label="Number of active cleaners">
       </div>
-      <div class="ben-item reveal">
-        <h3 class="ben-title">Stop firefighting complaints</h3>
-        <p class="ben-body">When a client calls, you open their job history and see every photo from that visit. You have proof — and a conversation you can actually win.</p>
+
+      <div class="roi-field">
+        <div class="roi-label">
+          <span>Average revenue per cleaning visit ($)</span>
+          <b id="roiRevLabel">$180</b>
+        </div>
+        <input type="range" class="roi-slider" id="roiRev" min="50" max="500" step="10" value="180" aria-label="Average revenue per visit">
       </div>
-      <div class="ben-item reveal">
-        <h3 class="ben-title">Scale without being everywhere</h3>
-        <p class="ben-body">Run 3 crews across 10 homes today? Gleam shows you all of them from one screen. You grow without losing control of quality.</p>
+
+      <div class="roi-result">
+        <div class="roi-number" id="roiNumber">$0</div>
+        <div class="roi-note">estimated monthly revenue at risk</div>
       </div>
-      <div class="ben-item reveal">
-        <h3 class="ben-title">Built for cleaners, not engineers</h3>
-        <p class="ben-body">Your team doesn't need training. Open the app, see the job, take the photo, check it off. Done in seconds, even with wet hands.</p>
-      </div>
+
+      <p class="roi-pitch">Gleam costs $49/mo. The math is simple.</p>
+      <a class="roi-cta" href="https://gleamqc.com/signup">Start My Free 14-Day Trial →</a>
+      <div class="roi-small">No credit card required.</div>
     </div>
   </div>
 </section>
@@ -1700,6 +2080,109 @@
       i = (i + 1) % badges.length;
       setTimeout(() => badges.forEach(b => b.classList.remove('pulse')), 900);
     }, 3000);
+  })();
+
+  // Solution step 1 — checklist stagger reveal
+  (function solChecklist() {
+    const cl = document.getElementById('solChecklist');
+    if (!cl) return;
+    const items = cl.querySelectorAll('.sc-room-title, .sc-item');
+    items.forEach((el, i) => { el.style.transitionDelay = (i * 150) + 'ms'; });
+    const obs = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      cl.classList.add('animate');
+      obs.disconnect();
+    }, { threshold: 0.3 });
+    obs.observe(cl);
+  })();
+
+  // Solution step 2 — phone progress bar
+  (function solPhone() {
+    const fill = document.getElementById('spFill');
+    if (!fill) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      setTimeout(() => fill.classList.add('filled'), 150);
+      obs.disconnect();
+    }, { threshold: 0.3 });
+    obs.observe(fill);
+  })();
+
+  // Solution step 3 — dashboard counter increment
+  (function solDash() {
+    const frac = document.getElementById('sdFrac');
+    if (!frac) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      setTimeout(() => { frac.textContent = '9/24'; }, 4000);
+      obs.disconnect();
+    }, { threshold: 0.3 });
+    obs.observe(frac);
+  })();
+
+  // ROI Calculator
+  (function roi() {
+    const cl = document.getElementById('roiCleaners');
+    const rev = document.getElementById('roiRev');
+    const clLabel = document.getElementById('roiCleanersLabel');
+    const revLabel = document.getElementById('roiRevLabel');
+    const num = document.getElementById('roiNumber');
+    if (!cl || !rev || !num) return;
+
+    const fmt = v => '$' + Math.round(v).toLocaleString('en-US');
+    let raf = null;
+    let current = 0;
+
+    function paint(slider) {
+      const min = +slider.min, max = +slider.max, val = +slider.value;
+      const pct = ((val - min) / (max - min)) * 100;
+      slider.style.background =
+        `linear-gradient(to right, var(--blue) 0%, var(--blue) ${pct}%, var(--line) ${pct}%, var(--line) 100%)`;
+    }
+
+    function animate(to) {
+      const from = current;
+      const delta = to - from;
+      const start = performance.now();
+      const dur = 600;
+      if (raf) cancelAnimationFrame(raf);
+      function tick(t) {
+        const p = Math.min(1, (t - start) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        current = from + delta * e;
+        num.textContent = fmt(current);
+        if (p < 1) raf = requestAnimationFrame(tick);
+        else { current = to; num.textContent = fmt(current); }
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    function calc() {
+      const c = +cl.value;
+      const r = +rev.value;
+      clLabel.textContent = c;
+      revLabel.textContent = '$' + r;
+      paint(cl);
+      paint(rev);
+      animate(c * 0.15 * 20 * r);
+    }
+
+    cl.addEventListener('input', calc);
+    rev.addEventListener('input', calc);
+
+    paint(cl); paint(rev);
+
+    const card = document.querySelector('.roi-card');
+    if (card) {
+      const obs = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) return;
+        calc();
+        obs.disconnect();
+      }, { threshold: 0.2 });
+      obs.observe(card);
+    } else {
+      calc();
+    }
   })();
 </script>
 
