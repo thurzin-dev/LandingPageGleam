@@ -399,14 +399,6 @@
       text-align: center;
     }
     .proof-stat:last-child { border-right: none; }
-    @media (max-width: 768px) {
-      .proof-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 32px 16px;
-      }
-      .proof-stat { border-right: none; padding: 0; }
-    }
     .proof-label {
       font-size: 14px; color: var(--muted);
       margin-bottom: 8px;
@@ -415,6 +407,59 @@
     .proof-value {
       font-size: 20px; font-weight: 700; color: var(--ink);
       letter-spacing: -0.01em;
+    }
+    .proof-dots { display: none; }
+    @media (max-width: 768px) {
+      .proof-row {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 12px;
+        padding: 16px 20px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start;
+      }
+      .proof-row::-webkit-scrollbar { display: none; }
+      .proof-stat {
+        flex: 0 0 60vw;
+        min-width: 60vw;
+        scroll-snap-align: start;
+        background: white;
+        border-right: none;
+        border-radius: 12px;
+        padding: 20px 24px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        text-align: left;
+      }
+      .proof-label {
+        font-size: 12px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .proof-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: #0f172a;
+        letter-spacing: -0.01em;
+      }
+      .proof-dots {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .proof-dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        transition: background 0.2s ease-out;
+      }
+      .proof-dot.active { background: var(--blue); }
     }
 
     /* ─────── Section heading pattern ─────── */
@@ -1576,6 +1621,13 @@
         <div class="proof-value">14 days</div>
       </div>
     </div>
+    <div class="proof-dots" aria-hidden="true">
+      <div class="proof-dot active"></div>
+      <div class="proof-dot"></div>
+      <div class="proof-dot"></div>
+      <div class="proof-dot"></div>
+      <div class="proof-dot"></div>
+    </div>
   </div>
 </section>
 
@@ -2307,6 +2359,27 @@
     } else {
       calc();
     }
+  })();
+
+  // Social proof stats — mobile swipe dot tracking
+  (function proofDots() {
+    const row = document.querySelector('.proof .proof-row');
+    const dots = document.querySelectorAll('.proof-dots .proof-dot');
+    if (!row || !dots.length) return;
+    let raf = null;
+    row.addEventListener('scroll', () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        const first = row.querySelector('.proof-stat');
+        if (!first) return;
+        const style = getComputedStyle(row);
+        const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+        const step = first.offsetWidth + gap;
+        const idx = step > 0 ? Math.max(0, Math.min(dots.length - 1, Math.round(row.scrollLeft / step))) : 0;
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      });
+    }, { passive: true });
   })();
 
   // Testimonials — slide-in reveal + mobile swipe dots
