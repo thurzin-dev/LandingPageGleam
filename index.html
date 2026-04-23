@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gleam — Quality you can see. Clients who stay.</title>
+  <meta name="description" content="Gleam gives cleaning business owners real-time visibility into every job — room by room, photo by photo. 14-day free trial. No credit card required.">
+  <meta property="og:title" content="Gleam — Quality you can see. Clients who stay.">
+  <meta property="og:description" content="Stop losing clients to missed spots you never knew about. Gleam shows you every job, every room, every photo — live.">
+  <meta property="og:image" content="https://landing-page-gleam.vercel.app/brand_assets/gleam-logo.png">
+  <meta property="og:url" content="https://gleamqc.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gleam — Quality you can see. Clients who stay.">
+  <meta name="twitter:description" content="Stop losing clients to missed spots you never knew about. Gleam shows you every job, every room, every photo — live.">
+  <meta name="twitter:image" content="https://landing-page-gleam.vercel.app/brand_assets/gleam-logo.png">
   <link rel="icon" href="brand_assets/gleam-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1135,6 +1145,119 @@
       .testi:nth-child(4) { transform: none; transition: none; opacity: 1; }
     }
 
+    /* ─────── Email capture ─────── */
+    .email-cta {
+      background: #0f172a;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .email-cta-eyebrow {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .email-cta-h {
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      max-width: 560px;
+      margin: 0 auto 16px;
+    }
+    .email-cta-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+    .email-form {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 12px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .email-input {
+      width: 320px;
+      height: 52px;
+      border-radius: 8px;
+      border: none;
+      padding: 0 20px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--ink);
+      background: white;
+      outline: 2px solid transparent;
+      outline-offset: 0;
+      transition: outline-color 0.15s ease-out;
+    }
+    .email-input:focus { outline-color: var(--blue); }
+    .email-input::placeholder { color: #94a3b8; }
+    .email-btn {
+      height: 52px;
+      padding: 0 28px;
+      border-radius: 8px;
+      border: none;
+      background: var(--blue);
+      color: white;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s ease-out, transform 0.15s ease-out;
+      white-space: nowrap;
+    }
+    .email-btn:hover { background: var(--blue-dark); }
+    .email-btn:active { transform: translateY(1px); }
+    .email-btn:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+    .email-error {
+      color: #f87171;
+      font-size: 13px;
+      margin-top: 12px;
+      min-height: 18px;
+      opacity: 0;
+      transition: opacity 0.2s ease-out;
+    }
+    .email-error.show { opacity: 1; }
+    .email-success {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: white;
+      font-size: 17px;
+      font-weight: 600;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .email-success.show { display: flex; }
+    .email-success-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(14,165,233,0.15);
+      color: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    @media (max-width: 600px) {
+      .email-cta-h { font-size: 26px; }
+      .email-form {
+        flex-direction: column;
+        gap: 8px;
+        max-width: 360px;
+      }
+      .email-input { width: 100%; }
+      .email-btn { width: 100%; }
+    }
+
     /* ─────── How it works ─────── */
     .how-grid {
       position: relative;
@@ -1917,6 +2040,24 @@
   </div>
 </section>
 
+<!-- ─────── Email capture ─────── -->
+<section class="email-cta">
+  <div class="reveal">
+    <div class="email-cta-eyebrow">Early access</div>
+    <h2 class="email-cta-h">Be the first to know when we launch new features.</h2>
+    <p class="email-cta-sub">Join 200+ cleaning business owners getting Gleam tips and updates. No spam. Unsubscribe anytime.</p>
+    <form class="email-form" id="emailForm" novalidate>
+      <input class="email-input" type="email" id="emailInput" placeholder="Your business email" autocomplete="email" required>
+      <button class="email-btn" type="submit">Join the list</button>
+    </form>
+    <div class="email-error" id="emailError" role="alert" aria-live="polite">Please enter a valid email</div>
+    <div class="email-success" id="emailSuccess" aria-live="polite">
+      <span class="email-success-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8.2L6.5 11.5L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>You're in. We'll be in touch.</span>
+    </div>
+  </div>
+</section>
+
 <!-- ─────── How it works ─────── -->
 <section id="setup">
   <div class="container">
@@ -2393,6 +2534,30 @@
     } else {
       calc();
     }
+  })();
+
+  // Email capture — validate and swap for success message
+  (function emailCta() {
+    const form = document.getElementById('emailForm');
+    const input = document.getElementById('emailInput');
+    const err = document.getElementById('emailError');
+    const success = document.getElementById('emailSuccess');
+    if (!form || !input || !err || !success) return;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    input.addEventListener('input', () => err.classList.remove('show'));
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = input.value.trim();
+      if (!re.test(val)) {
+        err.classList.add('show');
+        input.focus();
+        return;
+      }
+      form.style.display = 'none';
+      err.classList.remove('show');
+      err.style.display = 'none';
+      success.classList.add('show');
+    });
   })();
 
   // Social proof stats — mobile swipe dot tracking
