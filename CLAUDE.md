@@ -2,7 +2,17 @@
 
 ## Always Do First
 - **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
-- Whenever you have any questions about the company or whenever you need to write something about the company, refer to this document: `Gleam_Company_Documment.txt` t's located in the `brand_assets` folder.
+- **Check `.knowledge/` for any company/product/brand info.** It's the canonical source of truth (cloned from `gleam-knowledge-base` repo). Read the relevant file there before writing copy, positioning, or brand voice:
+  - `.knowledge/company.md` — what Gleam is, the problem, magic moment
+  - `.knowledge/product.md` — features, flows, tech stack
+  - `.knowledge/market.md` — ICP, competitors
+  - `.knowledge/pricing.md` — tiers, rationale
+  - `.knowledge/pitch.md` — taglines, hooks, key proof points
+  - `.knowledge/brand/voice-and-tone.md` — how Gleam talks
+  - `.knowledge/brand/messaging.md` — hero copy, subheads, reframes
+  - `.knowledge/glossary.md` — industry terms
+- If `.knowledge/` is missing, run `Setup-Knowledge.bat` from project root. To pull latest updates, run `Atualizar-Knowledge.bat`.
+- The legacy `brand_assets/Gleam_Company_Document.txt` is preserved for reference but `.knowledge/` is the primary source going forward.
 
 ## Reference Images
 - If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
@@ -41,15 +51,4 @@
 - **Shadows:** Never use flat `shadow-md`. Use layered, color-tinted shadows with low opacity.
 - **Typography:** Never use the same font for headings and body. Pair a display/serif with a clean sans. Apply tight tracking (`-0.03em`) on large headings, generous line-height (`1.7`) on body.
 - **Gradients:** Layer multiple radial gradients. Add grain/texture via SVG noise filter for depth.
-- **Animations:** Only animate `transform` and `opacity`. Never `transition-all`. Use spring-style easing.
-- **Interactive states:** Every clickable element needs hover, focus-visible, and active states. No exceptions.
-- **Images:** Add a gradient overlay (`bg-gradient-to-t from-black/60`) and a color treatment layer with `mix-blend-multiply`.
-- **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
-- **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
-
-## Hard Rules
-- Do not add sections, features, or content not in the reference
-- Do not "improve" a reference design — match it
-- Do not stop after one screenshot pass
-- Do not use `transition-all`
-- Do not use default Tailwind blue/indigo as primary color
+- **Animations:** Only animate `transform` and `opacity`. Never
