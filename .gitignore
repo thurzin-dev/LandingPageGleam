@@ -1,0 +1,21 @@
+# Shared knowledge base — cloned via Atualizar-Knowledge.bat, never committed
+.knowledge/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Temp / generated
+temporary screenshots/
+*.tmp
