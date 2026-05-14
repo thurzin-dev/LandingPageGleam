@@ -17,27 +17,25 @@
   <link rel="icon" href="brand_assets/gleam-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Gleam visual identity — see .knowledge/visual-identity.md */
-      --blue:       #38BDF8;  /* Sky Blue — primary */
-      --blue-dark:  #0EA5E9;  /* Sky Dark — hover / CTA pressed */
-      --blue-soft:  #E0F2FE;  /* Sky Blue tint */
-      --blue-tint:  #F0F9FF;  /* Sky Blue subtle background */
-      --indigo:     #6366F1;  /* Indigo — secondary */
-      --ink:        #0F172A;  /* Slate 900 — dark text / dark bg */
-      --ink-body:   #1E293B;  /* Slate 800 — body text */
-      --ink-soft:   #475569;  /* Slate 600 — soft text */
-      --muted:      #64748B;  /* Slate 500 — muted */
-      --line:       #E2E8F0;  /* Slate 200 — borders */
-      --line-soft:  #F1F5F9;  /* Slate 100 — soft surfaces */
-      --gray-bg:    #F8FAFC;  /* Slate 50 — page bg variant */
-      --white:      #FFFFFF;
-      --green:      #10B981;
-      --green-soft: #D1FAE5;
-      --amber:      #F59E0B;
-      --amber-soft: #FEF3C7;
+      --blue:       #0EA5E9;
+      --blue-dark:  #0284C7;
+      --blue-soft:  #E0F2FE;
+      --blue-tint:  #F0F9FF;
+      --ink:        #0f172a;
+      --ink-body:   #1e293b;
+      --ink-soft:   #475569;
+      --muted:      #64748b;
+      --line:       #e2e8f0;
+      --line-soft:  #f1f5f9;
+      --gray-bg:    #f8fafc;
+      --white:      #ffffff;
+      --green:      #10b981;
+      --green-soft: #d1fae5;
+      --amber:      #f59e0b;
+      --amber-soft: #fef3c7;
       --shadow-sm:  0 1px 2px rgba(15,23,42,0.04);
       --shadow-md:  0 4px 24px rgba(15,23,42,0.08);
       --shadow-lg:  0 18px 48px -12px rgba(15,23,42,0.14);
@@ -48,7 +46,7 @@
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: 'DM Sans', -apple-system, system-ui, sans-serif;
+      font-family: 'Figtree', -apple-system, system-ui, sans-serif;
       font-size: 18px;
       line-height: 1.7;
       color: var(--ink-body);
@@ -59,13 +57,13 @@
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: 'Fraunces', Georgia, serif;
       color: var(--ink);
       line-height: 1.12;
       letter-spacing: -0.025em;
       font-weight: 700;
     }
-    h3, h4 { font-family: 'DM Sans', sans-serif; letter-spacing: -0.01em; }
+    h3, h4 { font-family: 'Figtree', sans-serif; letter-spacing: -0.01em; }
 
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
@@ -103,7 +101,7 @@
     }
     .brand {
       display: flex; align-items: center; gap: 10px;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 22px; font-weight: 700;
       color: var(--ink); letter-spacing: -0.02em;
     }
@@ -669,7 +667,7 @@
       .sol-row .sol-ui { order: 2; }
     }
     .sol-num {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 56px; font-weight: 700;
       color: var(--blue);
       opacity: 0.22;
@@ -678,7 +676,7 @@
       margin-bottom: 16px;
     }
     .sol-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 28px; font-weight: 700;
       color: var(--ink);
       margin-bottom: 14px;
@@ -928,7 +926,7 @@
       padding: 40px;
     }
     .roi-headline {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Figtree', sans-serif;
       font-size: 20px; font-weight: 700;
       color: var(--ink);
       letter-spacing: -0.01em;
@@ -948,7 +946,7 @@
       font-weight: 500;
     }
     .roi-label b {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Figtree', sans-serif;
       font-weight: 700;
       color: var(--ink);
       font-size: 16px;
@@ -992,7 +990,7 @@
       text-align: center;
     }
     .roi-number {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 52px; font-weight: 700;
       color: var(--blue);
       letter-spacing: -0.03em;
@@ -1162,7 +1160,7 @@
       margin-bottom: 18px;
     }
     .email-cta-h {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 32px;
       font-weight: 700;
       color: white;
@@ -1172,7 +1170,7 @@
       margin: 0 auto 16px;
     }
     .email-cta-sub {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Figtree', sans-serif;
       font-size: 16px;
       color: rgba(255,255,255,0.65);
       line-height: 1.6;
@@ -1326,7 +1324,7 @@
       padding: 0 6px;
       border-radius: 999px;
       background: #cbd5e1; color: white;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Figtree', sans-serif;
       font-size: 10.5px; font-weight: 800;
       letter-spacing: 0.02em;
       display: flex; align-items: center; justify-content: center;
@@ -1435,7 +1433,7 @@
       margin-bottom: 4px;
     }
     .plan-price {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 48px; font-weight: 700;
       color: var(--ink);
       letter-spacing: -0.02em;
@@ -1586,7 +1584,7 @@
     }
     .foot-brand {
       display: flex; align-items: center; gap: 10px;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 22px; font-weight: 700;
       color: var(--ink); letter-spacing: -0.02em;
     }
@@ -2603,4 +2601,21 @@
     if (grid && dots.length) {
       let raf = null;
       grid.addEventListener('scroll', () => {
-      
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          const first = grid.querySelector('.testi');
+          if (!first) return;
+          const style = getComputedStyle(grid);
+          const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+          const step = first.offsetWidth + gap;
+          const idx = step > 0 ? Math.round(grid.scrollLeft / step) : 0;
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        });
+      }, { passive: true });
+    }
+  })();
+</script>
+
+</body>
+</html>
